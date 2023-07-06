@@ -1,0 +1,115 @@
+<div class="container mx-auto">
+  <div class="">
+    <!-- <div class="col s12"> -->
+      <h2 class="text-2xl font-normal leading-normal mt-0 my-2 text-blue-800">1. Single Select Dropdown</h2>
+      <div class="row">
+        <div class="col s12 l6">
+          <select-dropdown [instanceId]="'dropdown_1'" (searchChange)="searchChange($event)" tabindex="0" [multiple]="false" [(ngModel)]="singleSelect" [config]="config" [options]="options"></select-dropdown>
+        </div>
+        <div class="col s12 l6 flow-text">
+          <p style="margin: 0;">Balance of selected user: {{singleSelect? singleSelect?.balance : ''}}</p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-normal leading-normal mt-0 my-2 text-blue-800">2. Disabled Dropdown</h2>
+      <div class="row">
+        <div class="col s12 l6">
+          <select-dropdown [instanceId]="'dropdown_2'" tabindex="0" [disabled]="true" [multiple]="false" [(ngModel)]="singleSelect" [config]="config" [options]="options"></select-dropdown>
+        </div>
+        <div class="col s12 l6 flow-text">
+          <p style="margin: 0;">Balance of selected user: {{singleSelect?singleSelect?.balance:''}}</p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-normal leading-normal mt-0 my-2 text-blue-800">3. Multi Select Dropdown</h2>
+      <div class="row">
+        <div class="col s12 l6">
+          <select-dropdown [instanceId]="'dropdown_3'" tabindex="0" (change)="changeValue($event)" [multiple]="true" [(ngModel)]="multiSelect" [config]="config" [options]="options"></select-dropdown>
+        </div>
+        <div class="col s12 l6 flow-text">
+          <p style="margin: 0;">Selected Options:-</p>
+          <p style="margin: 0;" *ngFor="let user of multiSelect"><strong>Name:</strong> {{user.name}} ,
+            <strong>Balance:</strong>
+            {{user.balance}}
+          </p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-normal leading-normal mt-0 my-2 text-blue-800">4. Options as array of string</h2>
+      <div class="row">
+        <div class="col s12 l6">
+          <select-dropdown [instanceId]="'dropdown_4'" tabindex="0" [multiple]="true" [(ngModel)]="stringArray" [options]="stringOptions"></select-dropdown>
+        </div>
+        <div class="col s12 l6 flow-text">
+          <p style="margin: 0;">Selected Options:-</p>
+          <p style="margin: 0;" *ngFor="let user of stringArray">{{user}}</p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-normal leading-normal mt-0 my-2 text-blue-800">5. Options as array of Objects</h2>
+      <div class="row">
+        <div class="col s12 l6">
+          <select-dropdown tabindex="0" [multiple]="true" [(ngModel)]="objectsArray" [options]="options" [config]="config"></select-dropdown>
+        </div>
+        <div class="col s12 l6 flow-text">
+          <p style="margin: 0;">Selected Options:-</p>
+          <p style="margin: 0;" *ngFor="let user of objectsArray">{{user | json}}</p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-normal leading-normal mt-0 my-2 text-blue-800">6. Already selected options passed as value</h2>
+      <div class="row">
+        <div class="col s12 l6">
+          <select-dropdown tabindex="0" [multiple]="true" [(ngModel)]="selectedOptions" [options]="options" [config]="config"></select-dropdown>
+        </div>
+        <div class="col s12 l6 flow-text">
+          <p style="margin: 0;">Selected Options:-</p>
+          <p style="margin: 0;" *ngFor="let user of selectedOptions"><strong>Name:</strong> {{user.name}} ,
+            <strong>Balance:</strong>
+            {{user.balance}}
+          </p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-normal leading-normal mt-0 my-2 text-blue-800">7. Reset</h2>
+      <div class="row">
+        <div class="col s12 l6">
+          <select-dropdown tabindex="0" [multiple]="true" [(ngModel)]="resetOption" [options]="options" [config]="config"></select-dropdown>
+        </div>
+        <div class="col s12 l6 flow-text">
+          <p style="margin: 0;">Selected Options:-</p>
+          <p style="margin: 0;" *ngFor="let user of resetOption"><strong>Name:</strong> {{user.name}} ,
+            <strong>Balance:</strong>
+            {{user.balance}}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <button (click)="reset()" class="btn">Reset</button>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-normal leading-normal mt-0 my-2 text-blue-800">8. Custom option template</h2>
+      <div class="flex flex-col">
+        <!-- <div class=""> -->
+          <select-dropdown [optionItemTemplate]="optionTemplate" [selectedItemTemplate]="optionTemplate" tabindex="0" [multiple]="false" [(ngModel)]="optTemplate" [options]="options" [config]="config"></select-dropdown>
+        <!-- </div> -->
+        <!-- <div class="col s12 l6 flow-text">
+          <p style="margin: 0;">Selected Options:-</p>
+          <p style="margin: 0;" *ngFor="let user of optTemplate"><strong>Name:</strong> {{user.name}} ,
+            <strong>Balance:</strong>
+            {{user.balance}}
+          </p>
+        </div> -->
+      </div>
+    <!-- </div> -->
+  </div>
+</div>
+
+<ng-template #optionTemplate let-item="item" let-config="config">
+  <div class="flex flex-row items-center">
+    <img src="{{item.picture}}" class="h-8 w-8">
+    <span>{{item.name}} - {{item.balance}}</span>
+  </div>
+</ng-template>
